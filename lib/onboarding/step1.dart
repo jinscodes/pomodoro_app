@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Step1 extends StatefulWidget {
-  final TabController controller;
-
   const Step1({
     super.key,
-    required this.controller,
   });
 
   @override
@@ -15,8 +12,6 @@ class Step1 extends StatefulWidget {
 class _Step1State extends State<Step1> {
   @override
   Widget build(BuildContext context) {
-    TabController tabController = widget.controller;
-
     return Column(
       children: [
         Flexible(
@@ -55,19 +50,6 @@ class _Step1State extends State<Step1> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset("assets/image/unboxingDoodle.png"),
-                // SizedBox(
-                //   height: 10,
-                //   child: Padding(
-                //     padding: const EdgeInsets.symmetric(
-                //       horizontal: 50,
-                //     ),
-                //     child: Row(
-                //       children: [
-                //         Image.asset("assets/image/step1.png"),
-                //       ],
-                //     ),
-                //   ),
-                // ),
               ],
             ),
           ),

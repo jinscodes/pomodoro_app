@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pomodoro_app/onboarding/step1.dart';
 import 'package:pomodoro_app/onboarding/step2.dart';
 import 'package:pomodoro_app/onboarding/step3.dart';
+import 'package:pomodoro_app/screens/home_screen.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({super.key});
@@ -12,12 +13,11 @@ class Onboarding extends StatefulWidget {
 
 class _OnboardingState extends State<Onboarding>
     with SingleTickerProviderStateMixin {
+  int step = 0;
   late TabController tabController = TabController(
     length: 3,
     vsync: this,
     initialIndex: 0,
-
-    /// 탭 변경 애니메이션 시간
     animationDuration: const Duration(milliseconds: 800),
   );
 
@@ -33,7 +33,17 @@ class _OnboardingState extends State<Onboarding>
         controller.animateTo(1);
       case 1:
         controller.animateTo(2);
+        setState(() {
+          step = 2;
+        });
+      case 2:
+        toHomeScreen();
     }
+  }
+
+  void toHomeScreen() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const HomeScreen()));
   }
 
   @override
@@ -51,7 +61,7 @@ class _OnboardingState extends State<Onboarding>
                 minimumSize: const Size(10, 20),
               ),
               onPressed: () {
-                print("SKIP button");
+                toHomeScreen();
               },
               child: Text(
                 "SKIP",
@@ -70,14 +80,10 @@ class _OnboardingState extends State<Onboarding>
             child: TabBarView(
               physics: const NeverScrollableScrollPhysics(),
               controller: tabController,
-              children: [
-                Step1(
-                  controller: tabController,
-                ),
-                Step2(
-                  controller: tabController,
-                ),
-                const Step3(),
+              children: const [
+                Step1(),
+                Step2(),
+                Step3(),
               ],
             ),
           ),
@@ -96,7 +102,7 @@ class _OnboardingState extends State<Onboarding>
                 toNextStep(tabController);
               },
               child: Text(
-                "NEXT",
+                step == 2 ? "LET'S Go" : "NEXT",
                 style: TextStyle(
                   color: Theme.of(context).cardColor,
                   fontWeight: FontWeight.w800,
@@ -106,32 +112,6 @@ class _OnboardingState extends State<Onboarding>
           ),
         ],
       ),
-    );
-  }
-}
-
-class TabBar extends StatelessWidget {
-  const TabBar({
-    super.key,
-    required this.tabController,
-  });
-
-  final TabController tabController;
-
-  @override
-  Widget build(BuildContext context) {
-    return TabBarView(
-      physics: const NeverScrollableScrollPhysics(),
-      controller: tabController,
-      children: [
-        Step1(
-          controller: tabController,
-        ),
-        Step2(
-          controller: tabController,
-        ),
-        const Step3(),
-      ],
     );
   }
 }
