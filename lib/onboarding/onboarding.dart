@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pomodoro_app/onboarding/step3.dart';
+import 'package:pomodoro_app/onboarding/step1.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({super.key});
@@ -9,6 +9,8 @@ class Onboarding extends StatefulWidget {
 }
 
 class _OnboardingState extends State<Onboarding> {
+  int onboardingStep = 1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +38,9 @@ class _OnboardingState extends State<Onboarding> {
             )),
       ),
       backgroundColor: Theme.of(context).cardColor,
-      body: const Step3(),
+      body: Step1(
+        onboardingStep: onboardingStep,
+      ),
     );
   }
 }
