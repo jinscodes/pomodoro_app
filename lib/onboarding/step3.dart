@@ -43,19 +43,6 @@ class Step3 extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset("assets/image/dancingDoodle.png"),
-                // SizedBox(
-                //   height: 10,
-                //   child: Padding(
-                //     padding: const EdgeInsets.symmetric(
-                //       horizontal: 50,
-                //     ),
-                //     child: Row(
-                //       children: [
-                //         Image.asset("assets/image/step3.png"),
-                //       ],
-                //     ),
-                //   ),
-                // ),
               ],
             ),
           ),
