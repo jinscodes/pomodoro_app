@@ -43,43 +43,20 @@ class Step3 extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset("assets/image/dancingDoodle.png"),
-                SizedBox(
-                  height: 10,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 50,
-                    ),
-                    child: Row(
-                      children: [
-                        Image.asset("assets/image/step3.png"),
-                      ],
-                    ),
-                  ),
-                ),
+                // SizedBox(
+                //   height: 10,
+                //   child: Padding(
+                //     padding: const EdgeInsets.symmetric(
+                //       horizontal: 50,
+                //     ),
+                //     child: Row(
+                //       children: [
+                //         Image.asset("assets/image/step3.png"),
+                //       ],
+                //     ),
+                //   ),
+                // ),
               ],
-            ),
-          ),
-        ),
-        Flexible(
-          child: Container(
-            alignment: Alignment.center,
-            width: 200,
-            height: 50,
-            decoration: BoxDecoration(
-              color: Theme.of(context).textTheme.displayLarge!.color,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: TextButton(
-              onPressed: () {
-                print("NEXT button");
-              },
-              child: Text(
-                "NEXT",
-                style: TextStyle(
-                  color: Theme.of(context).cardColor,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
             ),
           ),
         ),

@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
 
-class Step1 extends StatelessWidget {
+class Step1 extends StatefulWidget {
+  final TabController controller;
+
   const Step1({
     super.key,
+    required this.controller,
   });
 
   @override
+  State<Step1> createState() => _Step1State();
+}
+
+class _Step1State extends State<Step1> {
+  @override
   Widget build(BuildContext context) {
+    TabController tabController = widget.controller;
+
     return Column(
       children: [
         Flexible(
@@ -45,43 +55,20 @@ class Step1 extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset("assets/image/unboxingDoodle.png"),
-                SizedBox(
-                  height: 10,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 50,
-                    ),
-                    child: Row(
-                      children: [
-                        Image.asset("assets/image/step1.png"),
-                      ],
-                    ),
-                  ),
-                ),
+                // SizedBox(
+                //   height: 10,
+                //   child: Padding(
+                //     padding: const EdgeInsets.symmetric(
+                //       horizontal: 50,
+                //     ),
+                //     child: Row(
+                //       children: [
+                //         Image.asset("assets/image/step1.png"),
+                //       ],
+                //     ),
+                //   ),
+                // ),
               ],
-            ),
-          ),
-        ),
-        Flexible(
-          child: Container(
-            alignment: Alignment.center,
-            width: 200,
-            height: 50,
-            decoration: BoxDecoration(
-              color: Theme.of(context).textTheme.displayLarge!.color,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: TextButton(
-              onPressed: () {
-                print("NEXT button");
-              },
-              child: Text(
-                "NEXT",
-                style: TextStyle(
-                  color: Theme.of(context).cardColor,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
             ),
           ),
         ),
