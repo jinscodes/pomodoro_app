@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Step1 extends StatelessWidget {
-  const Step1({
-    super.key,
-  });
+class Step3 extends StatelessWidget {
+  const Step3({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +12,7 @@ class Step1 extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "HOW TO USE",
+                "TAKE A BREAK",
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.w800,
@@ -28,7 +26,7 @@ class Step1 extends StatelessWidget {
                 width: 200,
                 child: Text(
                   textAlign: TextAlign.center,
-                  "Choose a task that you need to complete",
+                  "Regain your energy and take a short break",
                   style: TextStyle(
                     fontSize: 18,
                   ),
@@ -44,7 +42,7 @@ class Step1 extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset("assets/image/unboxingDoodle.png"),
+                Image.asset("assets/image/dancingDoodle.png"),
                 SizedBox(
                   height: 10,
                   child: Padding(
@@ -53,7 +51,7 @@ class Step1 extends StatelessWidget {
                     ),
                     child: Row(
                       children: [
-                        Image.asset("assets/image/step1.png"),
+                        Image.asset("assets/image/step3.png"),
                       ],
                     ),
                   ),
