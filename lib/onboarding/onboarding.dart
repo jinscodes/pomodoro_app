@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pomodoro_app/onboarding/step2.dart';
+import 'package:pomodoro_app/onboarding/step3.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({super.key});
@@ -36,7 +36,7 @@ class _OnboardingState extends State<Onboarding> {
             )),
       ),
       backgroundColor: Theme.of(context).cardColor,
-      body: const Step2(),
+      body: const Step3(),
     );
   }
 }

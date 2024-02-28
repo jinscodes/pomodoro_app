@@ -8,24 +8,78 @@ class Step2 extends StatelessWidget {
     return Column(
       children: [
         Flexible(
-          child: Container(
-            decoration: const BoxDecoration(
-              color: Colors.green,
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "JUST FOCUS",
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w800,
+                  color: Theme.of(context).colorScheme.background,
+                ),
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              const SizedBox(
+                width: 200,
+                child: Text(
+                  textAlign: TextAlign.center,
+                  "Concentrate fully on your work",
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
         Flexible(
           flex: 3,
           child: Container(
-            decoration: const BoxDecoration(
-              color: Colors.red,
+            alignment: Alignment.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset("assets/image/readingDoodle.png"),
+                SizedBox(
+                  height: 10,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 50,
+                    ),
+                    child: Row(
+                      children: [
+                        Image.asset("assets/image/step2.png"),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
         Flexible(
           child: Container(
-            decoration: const BoxDecoration(
-              color: Colors.blue,
+            alignment: Alignment.center,
+            width: 200,
+            height: 50,
+            decoration: BoxDecoration(
+              color: Theme.of(context).textTheme.displayLarge!.color,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: TextButton(
+              onPressed: () {
+                print("NEXT button");
+              },
+              child: Text(
+                "NEXT",
+                style: TextStyle(
+                  color: Theme.of(context).cardColor,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
             ),
           ),
         ),
