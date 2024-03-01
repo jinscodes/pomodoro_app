@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pomodoro_app/onboarding/step1.dart';
 import 'package:pomodoro_app/onboarding/step2.dart';
 import 'package:pomodoro_app/onboarding/step3.dart';
-import 'package:pomodoro_app/screens/home_screen.dart';
+import 'package:pomodoro_app/screens/pomodoro_screen.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({super.key});
@@ -42,8 +42,8 @@ class _OnboardingState extends State<Onboarding>
   }
 
   void toHomeScreen() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const PomodoroScreen()));
   }
 
   @override

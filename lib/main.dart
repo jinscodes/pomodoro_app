@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pomodoro_app/screens/splash_screen.dart';
+import 'package:pomodoro_app/screens/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,7 +29,8 @@ class _MyAppState extends State<MyApp> {
           backgroundColor: const Color(0xFFE7627C),
         ),
       ),
-      home: const SplashScreen(),
+      // home: const SplashScreen(),
+      home: const HomeScreen(),
     );
   }
 }
