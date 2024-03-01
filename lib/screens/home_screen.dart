@@ -12,26 +12,66 @@ class HomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset("assets/image/timer.png"),
-            Row(
-              children: [
-                Flexible(
-                  flex: 1,
-                  child: Container(
+            const SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 25,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    width: 100,
+                    height: 100,
                     decoration: const BoxDecoration(
-                      color: Colors.blue,
+                      color: Colors.red,
                     ),
-                    child: const Text("1"),
                   ),
-                ),
-                Flexible(
-                  child: Container(
+                  Container(
+                    width: 100,
+                    height: 100,
                     decoration: const BoxDecoration(
                       color: Colors.green,
                     ),
-                    child: const Text("2"),
                   ),
-                ),
-              ],
+                  Container(
+                    width: 100,
+                    height: 100,
+                    decoration: const BoxDecoration(
+                      color: Colors.blue,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 25,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    width: 150,
+                    height: 100,
+                    decoration: const BoxDecoration(
+                      color: Colors.red,
+                    ),
+                  ),
+                  Container(
+                    width: 150,
+                    height: 100,
+                    decoration: const BoxDecoration(
+                      color: Colors.green,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
