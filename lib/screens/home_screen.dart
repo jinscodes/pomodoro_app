@@ -13,64 +13,122 @@ class HomeScreen extends StatelessWidget {
           children: [
             Image.asset("assets/image/timer.png"),
             const SizedBox(
-              height: 20,
+              height: 30,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
+            const Padding(
+              padding: EdgeInsets.symmetric(
                 horizontal: 25,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    width: 100,
-                    height: 100,
-                    decoration: const BoxDecoration(
-                      color: Colors.red,
-                    ),
+                  TimerContainer(
+                    content: "SESSIONS",
+                    value: 25,
                   ),
-                  Container(
-                    width: 100,
-                    height: 100,
-                    decoration: const BoxDecoration(
-                      color: Colors.green,
-                    ),
+                  TimerContainer(
+                    content: "SHORT BREAKS",
+                    value: 5,
                   ),
-                  Container(
-                    width: 100,
-                    height: 100,
-                    decoration: const BoxDecoration(
-                      color: Colors.blue,
-                    ),
+                  TimerContainer(
+                    content: "LONG BREAKS",
+                    value: 15,
                   ),
                 ],
               ),
             ),
             const SizedBox(
-              height: 40,
+              height: 20,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
+            const Padding(
+              padding: EdgeInsets.symmetric(
                 horizontal: 25,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    width: 150,
-                    height: 100,
-                    decoration: const BoxDecoration(
-                      color: Colors.red,
-                    ),
+                  TimerContainer(
+                    content: "DAILY GOAL",
+                    value: 4,
+                    isBig: true,
                   ),
-                  Container(
-                    width: 150,
-                    height: 100,
-                    decoration: const BoxDecoration(
-                      color: Colors.green,
-                    ),
+                  TimerContainer(
+                    content: "SESSIONS TO LONG BREAK",
+                    value: 2,
+                    isBig: true,
                   ),
                 ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class TimerContainer extends StatelessWidget {
+  final String content;
+  final int value;
+  final bool? isBig;
+
+  const TimerContainer({
+    super.key,
+    required this.content,
+    required this.value,
+    this.isBig,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    double boxSize = isBig == true ? 160 : 105;
+
+    return GestureDetector(
+      onTap: () {
+        showModalBottomSheet(
+          context: context,
+          builder: (BuildContext context) {
+            return Container(
+              height: 200,
+              width: 600,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+              ),
+              child: const Column(
+                children: [
+                  Text("25"),
+                ],
+              ),
+            );
+          },
+        );
+      },
+      child: Container(
+        width: boxSize,
+        height: 105,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: Colors.white,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "$value",
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.w700,
+                color: Theme.of(context).textTheme.displayLarge!.color,
+              ),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Text(
+              content,
+              style: TextStyle(
+                fontSize: 10,
+                color: Theme.of(context).textTheme.displayLarge!.color,
               ),
             ),
           ],
