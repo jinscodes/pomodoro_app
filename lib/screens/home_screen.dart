@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  double sessions = 25.0;
+  double shortBreak = 5.0;
+  double longBreak = 15.0;
+  double dailyGoal = 0.0;
+  double sessionToLongBreak = 2.0;
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +26,8 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(
+            Padding(
+              padding: const EdgeInsets.symmetric(
                 horizontal: 25,
               ),
               child: Row(
@@ -24,15 +35,15 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   TimerContainer(
                     content: "SESSIONS",
-                    value: 25,
+                    value: sessions,
                   ),
                   TimerContainer(
                     content: "SHORT BREAKS",
-                    value: 5,
+                    value: shortBreak,
                   ),
                   TimerContainer(
                     content: "LONG BREAKS",
-                    value: 15,
+                    value: longBreak,
                   ),
                 ],
               ),
@@ -40,8 +51,8 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(
+            Padding(
+              padding: const EdgeInsets.symmetric(
                 horizontal: 25,
               ),
               child: Row(
@@ -49,12 +60,12 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   TimerContainer(
                     content: "DAILY GOAL",
-                    value: 4,
+                    value: dailyGoal,
                     isBig: true,
                   ),
                   TimerContainer(
                     content: "SESSIONS TO LONG BREAK",
-                    value: 2,
+                    value: sessionToLongBreak,
                     isBig: true,
                   ),
                 ],
@@ -69,7 +80,7 @@ class HomeScreen extends StatelessWidget {
 
 class TimerContainer extends StatelessWidget {
   final String content;
-  final int value;
+  final double value;
   final bool? isBig;
 
   const TimerContainer({
@@ -88,17 +99,8 @@ class TimerContainer extends StatelessWidget {
         showModalBottomSheet(
           context: context,
           builder: (BuildContext context) {
-            return Container(
-              height: 200,
-              width: 600,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-              ),
-              child: const Column(
-                children: [
-                  Text("25"),
-                ],
-              ),
+            return TimerSetting(
+              currentValue: value,
             );
           },
         );
@@ -131,6 +133,100 @@ class TimerContainer extends StatelessWidget {
                 color: Theme.of(context).textTheme.displayLarge!.color,
               ),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class TimerSetting extends StatefulWidget {
+  final double currentValue;
+
+  const TimerSetting({
+    super.key,
+    required this.currentValue,
+  });
+
+  @override
+  State<TimerSetting> createState() => _TimerSettingState();
+}
+
+class _TimerSettingState extends State<TimerSetting> {
+  @override
+  Widget build(BuildContext context) {
+    double currentValue = widget.currentValue;
+
+    return Container(
+      height: 200,
+      width: 600,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(50),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20,
+        ),
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 18,
+            ),
+            Container(
+              width: 50,
+              height: 5,
+              decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(50),
+              ),
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "$currentValue",
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.w600,
+                      color: Theme.of(context).colorScheme.background,
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () {
+                      print("DONE");
+                    },
+                    child: Text(
+                      "DONE",
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w800,
+                        color: Theme.of(context).textTheme.displayLarge!.color,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Slider(
+              max: 60,
+              value: currentValue,
+              onChanged: (double curValue) {
+                setState(() {
+                  currentValue = curValue;
+                });
+              },
+              divisions: 10,
+              // label: ,
+            )
           ],
         ),
       ),
