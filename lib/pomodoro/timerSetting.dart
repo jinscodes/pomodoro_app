@@ -3,11 +3,13 @@ import "package:flutter/material.dart";
 class TimerSetting extends StatefulWidget {
   final double curValue;
   final int division;
+  final Function(double) onUpdateCurValue;
 
   const TimerSetting({
     super.key,
     required this.curValue,
     required this.division,
+    required this.onUpdateCurValue,
   });
 
   @override
@@ -15,17 +17,18 @@ class TimerSetting extends StatefulWidget {
 }
 
 class _TimerSettingState extends State<TimerSetting> {
-  double test = 10;
-  late double curValue;
+  double _curValue = 0;
+  double settingValue = 0;
 
   @override
   void initState() {
-    curValue = widget.curValue;
+    _curValue = widget.curValue;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    print("2: ${widget.curValue}");
     return Container(
       height: 200,
       width: 600,
@@ -59,7 +62,7 @@ class _TimerSettingState extends State<TimerSetting> {
                 Align(
                   alignment: Alignment.center,
                   child: Text(
-                    "${curValue.toInt()}",
+                    "${settingValue.toInt()}",
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.w600,
@@ -67,15 +70,32 @@ class _TimerSettingState extends State<TimerSetting> {
                     ),
                   ),
                 ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    child: Text(
+                      "DONE",
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w800,
+                        color: Theme.of(context).textTheme.displayLarge!.color,
+                      ),
+                    ),
+                    onPressed: () {
+                      widget.onUpdateCurValue(settingValue);
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
               ],
             ),
             Slider(
               max: 60,
               divisions: widget.division,
-              value: curValue,
+              value: settingValue,
               onChanged: (double value) {
                 setState(() {
-                  curValue = value;
+                  settingValue = value;
                 });
               },
             )
