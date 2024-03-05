@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:pomodoro_app/pomodoro/timerSetting.dart";
 
 class TimerContainer extends StatefulWidget {
   final String content;
@@ -27,6 +28,12 @@ class _TimerContainerState extends State<TimerContainer> {
     super.initState();
   }
 
+  void updateCurValue(double newValue) {
+    setState(() {
+      curValue = newValue;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double boxSize = widget.isBig == true ? 160 : 105;
@@ -37,64 +44,10 @@ class _TimerContainerState extends State<TimerContainer> {
         showModalBottomSheet(
           context: context,
           builder: (BuildContext context) {
-            return Container(
-              height: 180,
-              width: 600,
-              decoration: BoxDecoration(
-                color: Theme.of(context).cardColor,
-                borderRadius: BorderRadius.circular(30),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 40,
-                ),
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 18,
-                    ),
-                    Container(
-                      width: 50,
-                      height: 5,
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            "${curValue.toInt()}",
-                            style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.w600,
-                              color: Theme.of(context).colorScheme.background,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Slider(
-                      max: 60,
-                      divisions: division,
-                      value: curValue,
-                      onChanged: (double value) {
-                        setState(() {
-                          curValue = value;
-                        });
-                        print("value: $value");
-                        print("curValue: $curValue");
-                      },
-                    )
-                  ],
-                ),
-              ),
+            return TimerSetting(
+              curValue: curValue,
+              division: division,
+              onUpdateCurValue: updateCurValue,
             );
           },
         );
