@@ -6,6 +6,7 @@ class TimerContainer extends StatefulWidget {
   final double value;
   final bool? isBig;
   final int division;
+  final double? max;
 
   const TimerContainer({
     super.key,
@@ -13,6 +14,7 @@ class TimerContainer extends StatefulWidget {
     required this.value,
     this.isBig,
     required this.division,
+    this.max,
   });
 
   @override
@@ -48,6 +50,7 @@ class _TimerContainerState extends State<TimerContainer> {
               curValue: curValue,
               division: division,
               onUpdateCurValue: updateCurValue,
+              max: widget.max,
             );
           },
         );
