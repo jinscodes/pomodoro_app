@@ -4,12 +4,14 @@ class TimerSetting extends StatefulWidget {
   final double curValue;
   final int division;
   final Function(double) onUpdateCurValue;
+  final double? max;
 
   const TimerSetting({
     super.key,
     required this.curValue,
     required this.division,
     required this.onUpdateCurValue,
+    this.max,
   });
 
   @override
@@ -23,12 +25,13 @@ class _TimerSettingState extends State<TimerSetting> {
   @override
   void initState() {
     _curValue = widget.curValue;
+    settingValue = widget.curValue;
+    print(widget.max);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    print("2: ${widget.curValue}");
     return Container(
       height: 200,
       width: 600,
@@ -90,9 +93,10 @@ class _TimerSettingState extends State<TimerSetting> {
               ],
             ),
             Slider(
-              max: 60,
+              max: widget.max == null ? 60.0 : widget.max!,
               divisions: widget.division,
               value: settingValue,
+              activeColor: Theme.of(context).textTheme.displayLarge!.color,
               onChanged: (double value) {
                 setState(() {
                   settingValue = value;
