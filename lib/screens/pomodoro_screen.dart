@@ -3,30 +3,55 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class PomodoroScreen extends StatefulWidget {
-  const PomodoroScreen({super.key});
+  final double sessions;
+  final double shortBreak;
+  final double longBreak;
+  final double dailyGoal;
+  final double sessionToLongBreak;
+
+  const PomodoroScreen(
+      {super.key,
+      required this.sessions,
+      required this.shortBreak,
+      required this.longBreak,
+      required this.dailyGoal,
+      required this.sessionToLongBreak});
 
   @override
   State<PomodoroScreen> createState() => _PomodoroState();
 }
 
 class _PomodoroState extends State<PomodoroScreen> {
-  static const twentyFiveMinutes = 1500;
-  int totalSeconds = twentyFiveMinutes;
+  late double sessions;
+  late double shortBreak;
+  late double longBreak;
+  late double dailyGoal;
+  late double sessionToLongBreak;
+
+  @override
+  void initState() {
+    sessions = widget.sessions;
+    shortBreak = widget.shortBreak;
+    longBreak = widget.longBreak;
+    dailyGoal = widget.dailyGoal;
+    sessionToLongBreak = widget.sessionToLongBreak;
+    super.initState();
+  }
+
   bool isRunning = false;
-  int totalPomodoros = 0;
   late Timer timer;
 
   void onTick(Timer timer) {
-    if (totalSeconds == 0) {
+    if (sessions == 0) {
       setState(() {
-        totalPomodoros = totalPomodoros + 1;
+        dailyGoal = dailyGoal + 1;
         isRunning = false;
-        totalSeconds = twentyFiveMinutes;
+        sessions = sessions; // reset
       });
       timer.cancel();
     } else {
       setState(() {
-        totalSeconds = totalSeconds - 1;
+        sessions = sessions - 1;
       });
     }
   }
@@ -48,13 +73,14 @@ class _PomodoroState extends State<PomodoroScreen> {
     });
   }
 
-  String format(int seconds) {
-    var duration = Duration(seconds: seconds);
+  String format(int minutes) {
+    var duration = Duration(minutes: minutes);
     return duration.toString().split(".").first.substring(2, 7);
   }
 
   @override
   Widget build(BuildContext context) {
+    print("1: $sessions");
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Column(
@@ -64,7 +90,7 @@ class _PomodoroState extends State<PomodoroScreen> {
             child: Container(
               alignment: Alignment.bottomCenter,
               child: Text(
-                format(totalSeconds),
+                format(sessions.toInt()),
                 style: TextStyle(
                   color: Theme.of(context).cardColor,
                   fontSize: 89,
@@ -109,7 +135,7 @@ class _PomodoroState extends State<PomodoroScreen> {
                           ),
                         ),
                         Text(
-                          "$totalPomodoros",
+                          "${dailyGoal.toInt()}",
                           style: TextStyle(
                             fontSize: 60,
                             fontWeight: FontWeight.w600,

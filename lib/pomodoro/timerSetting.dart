@@ -3,15 +3,18 @@ import "package:flutter/material.dart";
 class TimerSetting extends StatefulWidget {
   final double curValue;
   final int division;
-  final Function(double) onUpdateCurValue;
+  final Function(double) updateCurValue;
+  final Function(double) updateSetting;
+
   final double? max;
 
   const TimerSetting({
     super.key,
     required this.curValue,
     required this.division,
-    required this.onUpdateCurValue,
     this.max,
+    required this.updateCurValue,
+    required this.updateSetting,
   });
 
   @override
@@ -19,12 +22,10 @@ class TimerSetting extends StatefulWidget {
 }
 
 class _TimerSettingState extends State<TimerSetting> {
-  double _curValue = 0;
   double settingValue = 0;
 
   @override
   void initState() {
-    _curValue = widget.curValue;
     settingValue = widget.curValue;
     super.initState();
   }
@@ -84,7 +85,8 @@ class _TimerSettingState extends State<TimerSetting> {
                       ),
                     ),
                     onPressed: () {
-                      widget.onUpdateCurValue(settingValue);
+                      widget.updateCurValue(settingValue);
+                      widget.updateSetting(settingValue);
                       Navigator.pop(context);
                     },
                   ),
