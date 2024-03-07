@@ -14,12 +14,50 @@ class _HomeScreenState extends State<HomeScreen> {
   double sessions = 25.0;
   double shortBreak = 5.0;
   double longBreak = 15.0;
-  double dailyGoal = 0.0;
+  double dailyGoal = 4.0;
   double sessionToLongBreak = 2.0;
 
+  void updateSessions(double newValue) {
+    setState(() {
+      sessions = newValue;
+    });
+  }
+
+  void updateShortBreak(double newValue) {
+    setState(() {
+      shortBreak = newValue;
+    });
+  }
+
+  void updateLongBreak(double newValue) {
+    setState(() {
+      longBreak = newValue;
+    });
+  }
+
+  void updateDailyGoal(double newValue) {
+    setState(() {
+      dailyGoal = newValue;
+    });
+  }
+
+  void updateSessionToLongBreak(double newValue) {
+    setState(() {
+      sessionToLongBreak = newValue;
+    });
+  }
+
   void toPomodoroScreen() {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const PomodoroScreen()));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => PomodoroScreen(
+                  sessions: sessions,
+                  shortBreak: shortBreak,
+                  longBreak: longBreak,
+                  dailyGoal: dailyGoal,
+                  sessionToLongBreak: sessionToLongBreak,
+                )));
   }
 
   @override
@@ -48,17 +86,20 @@ class _HomeScreenState extends State<HomeScreen> {
                         TimerContainer(
                           content: "SESSIONS",
                           value: sessions,
+                          updateSetting: updateSessions,
                           division: 12,
                         ),
                         TimerContainer(
                           content: "SHORT BREAKS",
                           value: shortBreak,
+                          updateSetting: updateShortBreak,
                           division: 10,
                           max: 10,
                         ),
                         TimerContainer(
                           content: "LONG BREAKS",
                           value: longBreak,
+                          updateSetting: updateLongBreak,
                           division: 6,
                           max: 30,
                         ),
@@ -78,12 +119,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         TimerContainer(
                           content: "DAILY GOAL",
                           value: dailyGoal,
+                          updateSetting: updateDailyGoal,
                           isBig: true,
                           division: 60,
                         ),
                         TimerContainer(
                           content: "SESSIONS TO LONG BREAK",
                           value: sessionToLongBreak,
+                          updateSetting: updateSessionToLongBreak,
                           isBig: true,
                           division: 60,
                         ),
@@ -97,7 +140,6 @@ class _HomeScreenState extends State<HomeScreen> {
               flex: 1,
               child: Button(
                   handleClick: () {
-                    print("object");
                     toPomodoroScreen();
                   },
                   content: "START"),

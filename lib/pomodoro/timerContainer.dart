@@ -7,6 +7,7 @@ class TimerContainer extends StatefulWidget {
   final bool? isBig;
   final int division;
   final double? max;
+  final Function(double) updateSetting;
 
   const TimerContainer({
     super.key,
@@ -15,6 +16,7 @@ class TimerContainer extends StatefulWidget {
     this.isBig,
     required this.division,
     this.max,
+    required this.updateSetting,
   });
 
   @override
@@ -36,6 +38,11 @@ class _TimerContainerState extends State<TimerContainer> {
     });
   }
 
+  String format(int minutes) {
+    var duration = Duration(minutes: minutes);
+    return duration.toString().split(".").first.substring(2, 4);
+  }
+
   @override
   Widget build(BuildContext context) {
     double boxSize = widget.isBig == true ? 160 : 105;
@@ -49,7 +56,8 @@ class _TimerContainerState extends State<TimerContainer> {
             return TimerSetting(
               curValue: curValue,
               division: division,
-              onUpdateCurValue: updateCurValue,
+              updateCurValue: updateCurValue,
+              updateSetting: widget.updateSetting,
               max: widget.max,
             );
           },
@@ -66,7 +74,7 @@ class _TimerContainerState extends State<TimerContainer> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "${curValue.toInt()}",
+              format(curValue.toInt()),
               style: TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.w700,
