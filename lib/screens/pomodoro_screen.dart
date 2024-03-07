@@ -27,6 +27,7 @@ class _PomodoroState extends State<PomodoroScreen> {
   late double longBreak;
   late double dailyGoal;
   late double sessionToLongBreak;
+  late int totalSecond;
 
   @override
   void initState() {
@@ -35,6 +36,7 @@ class _PomodoroState extends State<PomodoroScreen> {
     longBreak = widget.longBreak;
     dailyGoal = widget.dailyGoal;
     sessionToLongBreak = widget.sessionToLongBreak;
+    totalSecond = widget.sessions.toInt() * 60;
     super.initState();
   }
 
@@ -46,12 +48,12 @@ class _PomodoroState extends State<PomodoroScreen> {
       setState(() {
         dailyGoal = dailyGoal + 1;
         isRunning = false;
-        sessions = sessions; // reset
+        totalSecond = widget.sessions.toInt() * 60;
       });
       timer.cancel();
     } else {
       setState(() {
-        sessions = sessions - 1;
+        totalSecond = totalSecond - 1;
       });
     }
   }
@@ -73,14 +75,13 @@ class _PomodoroState extends State<PomodoroScreen> {
     });
   }
 
-  String format(int minutes) {
-    var duration = Duration(minutes: minutes);
+  String format(int second) {
+    var duration = Duration(seconds: second);
     return duration.toString().split(".").first.substring(2, 7);
   }
 
   @override
   Widget build(BuildContext context) {
-    print("1: $sessions");
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Column(
@@ -90,7 +91,7 @@ class _PomodoroState extends State<PomodoroScreen> {
             child: Container(
               alignment: Alignment.bottomCenter,
               child: Text(
-                format(sessions.toInt()),
+                format(totalSecond),
                 style: TextStyle(
                   color: Theme.of(context).cardColor,
                   fontSize: 89,
