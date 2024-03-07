@@ -26,7 +26,6 @@ class _TimerSettingState extends State<TimerSetting> {
   void initState() {
     _curValue = widget.curValue;
     settingValue = widget.curValue;
-    print(widget.max);
     super.initState();
   }
 
