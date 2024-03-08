@@ -37,6 +37,7 @@ dependencies:
   flutter_native_splash: ^2.3.11
   carousel_slider: ^4.2.1
   track_slider: ^0.0.6
+  flutter_svg: ^2.0.10+1
 
 dev_dependencies:
   flutter_test:
