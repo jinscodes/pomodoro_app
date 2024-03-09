@@ -20,26 +20,23 @@ class BottomContainer extends StatefulWidget {
 class _BottomContainerState extends State<BottomContainer> {
   late int totalRound;
   late int totalGoal;
-  late int curRound;
-  late int curGoal;
+  // late int curRound;
+  // late int curGoal;
 
   @override
   void initState() {
     totalRound = widget.totalRound;
     totalGoal = widget.totalGoal;
-    curRound = widget.curRound;
-    curGoal = widget.curGoal;
+    // curRound = widget.curRound;
+    // curGoal = widget.curGoal;
     super.initState();
-  }
-
-  void setRound() {
-    setState(() {
-      curRound = curRound + 1;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
+    int curRound = widget.curRound;
+    int curGoal = widget.curGoal;
+
     return Container(
       width: 600,
       height: 150,

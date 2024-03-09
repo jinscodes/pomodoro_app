@@ -11,7 +11,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  double sessions = 25.0;
+  // double sessions = 25.0;
+  double sessions = 1.0;
   double shortBreak = 5.0;
   double longBreak = 15.0;
   double dailyGoal = 4.0;
