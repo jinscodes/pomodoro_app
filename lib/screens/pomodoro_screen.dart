@@ -50,9 +50,9 @@ class _PomodoroState extends State<PomodoroScreen> {
   void onTick(Timer timer) {
     if (sessions == 0) {
       setState(() {
-        dailyGoal = dailyGoal + 1;
+        curRound = curRound + 1;
         isRunning = false;
-        totalSecond = widget.sessions.toInt() * 60;
+        totalSecond = sessions.toInt();
       });
       timer.cancel();
     } else {
