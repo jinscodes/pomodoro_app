@@ -48,11 +48,13 @@ class _PomodoroState extends State<PomodoroScreen> {
   late Timer timer;
 
   void onTick(Timer timer) {
-    if (sessions == 0) {
+    print("sessions: $sessions");
+    print("totalSecond: $totalSecond");
+    if (totalSecond == 0) {
       setState(() {
         curRound = curRound + 1;
         isRunning = false;
-        totalSecond = sessions.toInt();
+        totalSecond = sessions.toInt() * 60;
       });
       timer.cancel();
     } else {
