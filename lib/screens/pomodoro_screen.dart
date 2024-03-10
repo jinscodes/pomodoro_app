@@ -32,6 +32,9 @@ class _PomodoroState extends State<PomodoroScreen> {
   late int totalSecond;
   int curRound = 0;
   int curGoal = 0;
+  Timer? _blink;
+  bool _show = true;
+  final String _step = "sessions";
 
   @override
   void initState() {
@@ -48,8 +51,6 @@ class _PomodoroState extends State<PomodoroScreen> {
   late Timer timer;
 
   void onTick(Timer timer) {
-    print("sessions: $sessions");
-    print("totalSecond: $totalSecond");
     if (totalSecond == 0) {
       setState(() {
         curRound = curRound + 1;
@@ -57,9 +58,17 @@ class _PomodoroState extends State<PomodoroScreen> {
         totalSecond = sessions.toInt() * 60;
       });
       timer.cancel();
+      _blink?.cancel();
+      if (curRound == sessionToLongBreak) {
+        print("DONE");
+        setState(() {
+          _step == "break";
+        });
+      }
     } else {
       setState(() {
-        totalSecond = totalSecond - 1;
+        // totalSecond = totalSecond - 1;
+        totalSecond = totalSecond - 10;
       });
     }
   }
@@ -69,6 +78,7 @@ class _PomodoroState extends State<PomodoroScreen> {
       const Duration(seconds: 1),
       onTick,
     );
+    blinkSvg();
     setState(() {
       isRunning = true;
     });
@@ -76,6 +86,7 @@ class _PomodoroState extends State<PomodoroScreen> {
 
   void onPausePressed() {
     timer.cancel();
+    _blink?.cancel();
     setState(() {
       isRunning = false;
     });
@@ -86,10 +97,18 @@ class _PomodoroState extends State<PomodoroScreen> {
     return duration.toString().split(".").first.substring(2, 7);
   }
 
+  void blinkSvg() {
+    _blink = Timer.periodic(const Duration(milliseconds: 300), (timer) {
+      setState(() => _show = !_show);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: _step == "sessions"
+          ? Theme.of(context).colorScheme.background
+          : Colors.blue,
       body: Column(
         children: [
           Flexible(
@@ -107,15 +126,25 @@ class _PomodoroState extends State<PomodoroScreen> {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    SvgPicture.asset(
-                      "assets/svg/heartrate.svg",
-                      width: 500,
-                      height: 20,
-                      colorFilter: ColorFilter.mode(
-                        Theme.of(context).cardColor,
-                        BlendMode.srcIn,
-                      ),
-                    ),
+                    _show
+                        ? SvgPicture.asset(
+                            "assets/svg/heartrate.svg",
+                            width: 500,
+                            height: 20,
+                            colorFilter: ColorFilter.mode(
+                              Theme.of(context).cardColor,
+                              BlendMode.srcIn,
+                            ),
+                          )
+                        : SvgPicture.asset(
+                            "assets/svg/heartrate.svg",
+                            width: 500,
+                            height: 20,
+                            colorFilter: ColorFilter.mode(
+                              Theme.of(context).cardColor.withOpacity(0.5),
+                              BlendMode.srcIn,
+                            ),
+                          ),
                   ],
                 )),
           ),
@@ -133,8 +162,8 @@ class _PomodoroState extends State<PomodoroScreen> {
             ),
           ),
           BottomContainer(
-            totalRound: dailyGoal.toInt(),
-            totalGoal: sessionToLongBreak.toInt(),
+            totalRound: sessionToLongBreak.toInt(),
+            totalGoal: dailyGoal.toInt(),
             curRound: curRound,
             curGoal: curGoal,
           ),
