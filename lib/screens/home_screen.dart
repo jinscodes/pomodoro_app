@@ -16,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   double shortBreak = 5.0;
   double longBreak = 15.0;
   double dailyGoal = 4.0;
-  double sessionToLongBreak = 2.0;
+  double sessionToLongBreak = 1.0;
 
   void updateSessions(double newValue) {
     setState(() {
