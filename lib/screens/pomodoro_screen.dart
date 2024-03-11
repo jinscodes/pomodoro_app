@@ -25,22 +25,22 @@ class PomodoroScreen extends StatefulWidget {
 
 class _PomodoroState extends State<PomodoroScreen> {
   late double sessions;
-  late double shortBreak;
-  late double longBreak;
+  late int shortBreak;
+  late int longBreak;
   late double dailyGoal;
   late double sessionToLongBreak;
   late int totalSecond;
   int curRound = 0;
   int curGoal = 0;
+  String step = "sessions";
   Timer? _blink;
   bool _show = true;
-  final String _step = "sessions";
 
   @override
   void initState() {
     sessions = widget.sessions;
-    shortBreak = widget.shortBreak;
-    longBreak = widget.longBreak;
+    shortBreak = widget.shortBreak.toInt() * 60;
+    longBreak = widget.longBreak.toInt() * 60;
     dailyGoal = widget.dailyGoal;
     sessionToLongBreak = widget.sessionToLongBreak;
     totalSecond = widget.sessions.toInt() * 60;
@@ -52,19 +52,24 @@ class _PomodoroState extends State<PomodoroScreen> {
 
   void onTick(Timer timer) {
     if (totalSecond == 0) {
+      if (curRound + 1 == sessionToLongBreak) {
+        setState(() {
+          curRound = 0;
+          curGoal = curGoal + 1;
+          step = "break";
+        });
+      } else {
+        setState(() {
+          curRound = curRound + 1;
+          step == "break";
+        });
+      }
       setState(() {
-        curRound = curRound + 1;
         isRunning = false;
         totalSecond = sessions.toInt() * 60;
       });
       timer.cancel();
       _blink?.cancel();
-      if (curRound == sessionToLongBreak) {
-        print("DONE");
-        setState(() {
-          _step == "break";
-        });
-      }
     } else {
       setState(() {
         // totalSecond = totalSecond - 1;
@@ -106,7 +111,7 @@ class _PomodoroState extends State<PomodoroScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: _step == "sessions"
+      backgroundColor: step == "sessions"
           ? Theme.of(context).colorScheme.background
           : Colors.blue,
       body: Column(
