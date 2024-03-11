@@ -57,16 +57,22 @@ class _PomodoroState extends State<PomodoroScreen> {
           setState(() {
             curRound = 0;
             curGoal = curGoal + 1;
-            totalSecond = shortBreak;
-            step = "break";
+            totalSecond = longBreak;
+            step = "longbreak";
           });
         } else {
           setState(() {
             curRound = curRound + 1;
-            totalSecond = sessions;
+            totalSecond = shortBreak;
+            step = "shortbreak";
           });
         }
-      } else if (step == "break") {
+      } else if (step == "shortbreak") {
+        setState(() {
+          step = "sessions";
+          totalSecond = sessions;
+        });
+      } else {
         setState(() {
           step = "sessions";
           totalSecond = sessions;
@@ -121,7 +127,7 @@ class _PomodoroState extends State<PomodoroScreen> {
     return Scaffold(
       backgroundColor: step == "sessions"
           ? Theme.of(context).colorScheme.background
-          : Colors.blue,
+          : Theme.of(context).textTheme.displayLarge!.color,
       body: Column(
         children: [
           Flexible(
