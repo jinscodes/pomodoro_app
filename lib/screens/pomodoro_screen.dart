@@ -24,7 +24,7 @@ class PomodoroScreen extends StatefulWidget {
 }
 
 class _PomodoroState extends State<PomodoroScreen> {
-  late double sessions;
+  late int sessions;
   late int shortBreak;
   late int longBreak;
   late double dailyGoal;
@@ -38,7 +38,7 @@ class _PomodoroState extends State<PomodoroScreen> {
 
   @override
   void initState() {
-    sessions = widget.sessions;
+    sessions = widget.sessions.toInt() * 60;
     shortBreak = widget.shortBreak.toInt() * 60;
     longBreak = widget.longBreak.toInt() * 60;
     dailyGoal = widget.dailyGoal;
@@ -52,21 +52,35 @@ class _PomodoroState extends State<PomodoroScreen> {
 
   void onTick(Timer timer) {
     if (totalSecond == 0) {
-      if (curRound + 1 == sessionToLongBreak) {
+      if (step == "sessions") {
+        if (curRound + 1 == sessionToLongBreak) {
+          setState(() {
+            curRound = 0;
+            curGoal = curGoal + 1;
+            totalSecond = longBreak;
+            step = "longbreak";
+          });
+        } else {
+          setState(() {
+            curRound = curRound + 1;
+            totalSecond = shortBreak;
+            step = "shortbreak";
+          });
+        }
+      } else if (step == "shortbreak") {
         setState(() {
-          curRound = 0;
-          curGoal = curGoal + 1;
-          step = "break";
+          step = "sessions";
+          totalSecond = sessions;
         });
       } else {
         setState(() {
-          curRound = curRound + 1;
-          step == "break";
+          step = "sessions";
+          totalSecond = sessions;
         });
       }
+
       setState(() {
         isRunning = false;
-        totalSecond = sessions.toInt() * 60;
       });
       timer.cancel();
       _blink?.cancel();
@@ -113,7 +127,7 @@ class _PomodoroState extends State<PomodoroScreen> {
     return Scaffold(
       backgroundColor: step == "sessions"
           ? Theme.of(context).colorScheme.background
-          : Colors.blue,
+          : Theme.of(context).textTheme.displayLarge!.color,
       body: Column(
         children: [
           Flexible(
