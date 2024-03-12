@@ -52,25 +52,26 @@ class _OnboardingState extends State<Onboarding>
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(20.0),
         child: AppBar(
-            elevation: 0,
-            centerTitle: false,
-            backgroundColor: Theme.of(context).cardColor,
-            title: TextButton(
-              style: TextButton.styleFrom(
-                padding: EdgeInsets.zero,
-                minimumSize: const Size(10, 20),
+          elevation: 0,
+          centerTitle: false,
+          backgroundColor: Theme.of(context).cardColor,
+          title: TextButton(
+            style: TextButton.styleFrom(
+              padding: EdgeInsets.zero,
+              minimumSize: const Size(10, 20),
+            ),
+            onPressed: () {
+              toHomeScreen();
+            },
+            child: Text(
+              "SKIP",
+              style: TextStyle(
+                fontSize: 10,
+                color: Theme.of(context).textTheme.displayLarge!.color,
               ),
-              onPressed: () {
-                toHomeScreen();
-              },
-              child: Text(
-                "SKIP",
-                style: TextStyle(
-                  fontSize: 10,
-                  color: Theme.of(context).textTheme.displayLarge!.color,
-                ),
-              ),
-            )),
+            ),
+          ),
+        ),
       ),
       backgroundColor: Theme.of(context).cardColor,
       body: Column(
