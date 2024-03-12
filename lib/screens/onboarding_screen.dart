@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pomodoro_app/onboarding/step1.dart';
 import 'package:pomodoro_app/onboarding/step2.dart';
 import 'package:pomodoro_app/onboarding/step3.dart';
-import 'package:pomodoro_app/screens/home_screen.dart';
+import 'package:pomodoro_app/screens/setting_screen.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({super.key});
@@ -42,8 +42,8 @@ class _OnboardingState extends State<Onboarding>
   }
 
   void toHomeScreen() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const SettingScreen()));
   }
 
   @override
@@ -52,25 +52,26 @@ class _OnboardingState extends State<Onboarding>
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(20.0),
         child: AppBar(
-            elevation: 0,
-            centerTitle: false,
-            backgroundColor: Theme.of(context).cardColor,
-            title: TextButton(
-              style: TextButton.styleFrom(
-                padding: EdgeInsets.zero,
-                minimumSize: const Size(10, 20),
+          elevation: 0,
+          centerTitle: false,
+          backgroundColor: Theme.of(context).cardColor,
+          title: TextButton(
+            style: TextButton.styleFrom(
+              padding: EdgeInsets.zero,
+              minimumSize: const Size(10, 20),
+            ),
+            onPressed: () {
+              toHomeScreen();
+            },
+            child: Text(
+              "SKIP",
+              style: TextStyle(
+                fontSize: 10,
+                color: Theme.of(context).textTheme.displayLarge!.color,
               ),
-              onPressed: () {
-                toHomeScreen();
-              },
-              child: Text(
-                "SKIP",
-                style: TextStyle(
-                  fontSize: 10,
-                  color: Theme.of(context).textTheme.displayLarge!.color,
-                ),
-              ),
-            )),
+            ),
+          ),
+        ),
       ),
       backgroundColor: Theme.of(context).cardColor,
       body: Column(

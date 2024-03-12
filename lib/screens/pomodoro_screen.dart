@@ -54,12 +54,23 @@ class _PomodoroState extends State<PomodoroScreen> {
     if (totalSecond == 0) {
       if (step == "sessions") {
         if (curRound + 1 == sessionToLongBreak) {
-          setState(() {
-            curRound = 0;
-            curGoal = curGoal + 1;
-            totalSecond = longBreak;
-            step = "longbreak";
-          });
+          if (curGoal + 1 == dailyGoal) {
+            print("done");
+            setState(() {
+              curRound = 0;
+              curGoal = 0;
+              totalSecond = 0;
+              step = "sessions";
+            });
+            _showMyDialog();
+          } else {
+            setState(() {
+              curRound = 0;
+              curGoal = curGoal + 1;
+              totalSecond = longBreak;
+              step = "longbreak";
+            });
+          }
         } else {
           setState(() {
             curRound = curRound + 1;
@@ -122,12 +133,95 @@ class _PomodoroState extends State<PomodoroScreen> {
     });
   }
 
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Theme.of(context).cardColor,
+          title: Column(
+            children: [
+              const Icon(
+                Icons.check_circle_outline_rounded,
+                color: Colors.green,
+                size: 60,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(
+                'CONGRATULATION!!',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.displayLarge!.color,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+          content: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                Text(
+                  'You done your all rounds and goals.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Theme.of(context).textTheme.displayLarge!.color,
+                  ),
+                ),
+                Text(
+                  'Do you want to return to the setting screen?',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Theme.of(context).textTheme.displayLarge!.color,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('YES'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: step == "sessions"
           ? Theme.of(context).colorScheme.background
           : Theme.of(context).textTheme.displayLarge!.color,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(20.0),
+        child: AppBar(
+            elevation: 0,
+            centerTitle: false,
+            backgroundColor: Theme.of(context).colorScheme.background,
+            title: TextButton(
+              style: TextButton.styleFrom(
+                padding: EdgeInsets.zero,
+                minimumSize: const Size(10, 20),
+              ),
+              onPressed: () {
+                print("Click");
+              },
+              child: Text(
+                "SKIP",
+                style: TextStyle(
+                  fontSize: 10,
+                  color: Theme.of(context).textTheme.displayLarge!.color,
+                ),
+              ),
+            )),
+      ),
       body: Column(
         children: [
           Flexible(

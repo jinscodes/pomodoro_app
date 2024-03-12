@@ -3,14 +3,14 @@ import 'package:pomodoro_app/common/button.dart';
 import 'package:pomodoro_app/pomodoro/timerContainer.dart';
 import 'package:pomodoro_app/screens/pomodoro_screen.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class SettingScreen extends StatefulWidget {
+  const SettingScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<SettingScreen> createState() => _SettingScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _SettingScreenState extends State<SettingScreen> {
   // double sessions = 25.0;
   double sessions = 1.0;
   double shortBreak = 5.0;
