@@ -199,28 +199,21 @@ class _PomodoroState extends State<PomodoroScreen> {
       backgroundColor: step == "sessions"
           ? Theme.of(context).colorScheme.background
           : Theme.of(context).textTheme.displayLarge!.color,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(20.0),
-        child: AppBar(
-            elevation: 0,
-            centerTitle: false,
-            backgroundColor: Theme.of(context).colorScheme.background,
-            title: TextButton(
-              style: TextButton.styleFrom(
-                padding: EdgeInsets.zero,
-                minimumSize: const Size(10, 20),
-              ),
-              onPressed: () {
-                print("Click");
-              },
-              child: Text(
-                "SKIP",
-                style: TextStyle(
-                  fontSize: 10,
-                  color: Theme.of(context).textTheme.displayLarge!.color,
-                ),
-              ),
-            )),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Theme.of(context).colorScheme.background,
+        actions: <Widget>[
+          PopupMenuButton<String>(
+            itemBuilder: (BuildContext context) {
+              return {'Logout', 'Settings'}.map((String choice) {
+                return PopupMenuItem<String>(
+                  value: choice,
+                  child: Text(choice),
+                );
+              }).toList();
+            },
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -229,7 +222,7 @@ class _PomodoroState extends State<PomodoroScreen> {
             child: Container(
                 alignment: Alignment.bottomCenter,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
                       format(totalSecond),
@@ -263,14 +256,19 @@ class _PomodoroState extends State<PomodoroScreen> {
           ),
           Flexible(
             flex: 2,
-            child: Center(
-              child: IconButton(
-                iconSize: 120,
-                color: Theme.of(context).cardColor,
-                onPressed: isRunning ? onPausePressed : onStartPressed,
-                icon: Icon(isRunning
-                    ? Icons.pause_circle_outline
-                    : Icons.play_circle_outline),
+            child: Container(
+              alignment: Alignment.topCenter,
+              child: Column(
+                children: [
+                  IconButton(
+                    iconSize: 120,
+                    color: Theme.of(context).cardColor,
+                    onPressed: isRunning ? onPausePressed : onStartPressed,
+                    icon: Icon(isRunning
+                        ? Icons.pause_circle_outline
+                        : Icons.play_circle_outline),
+                  ),
+                ],
               ),
             ),
           ),
@@ -285,3 +283,22 @@ class _PomodoroState extends State<PomodoroScreen> {
     );
   }
 }
+
+// PreferredSize(
+//         preferredSize: const Size.fromHeight(20.0),
+//         child: AppBar(
+//           automaticallyImplyLeading: false,
+//           actions: <Widget>[
+//             PopupMenuButton<String>(
+//               itemBuilder: (BuildContext context) {
+//                 return {'Logout', 'Settings'}.map((String choice) {
+//                   return PopupMenuItem<String>(
+//                     value: choice,
+//                     child: Text(choice),
+//                   );
+//                 }).toList();
+//               },
+//             ),
+//           ],
+//         ),
+//       ),
