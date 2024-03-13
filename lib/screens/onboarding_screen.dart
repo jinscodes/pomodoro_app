@@ -42,7 +42,7 @@ class _OnboardingState extends State<Onboarding>
   }
 
   void toHomeScreen() {
-    Navigator.push(context,
+    Navigator.pushReplacement(context,
         MaterialPageRoute(builder: (context) => const SettingScreen()));
   }
 

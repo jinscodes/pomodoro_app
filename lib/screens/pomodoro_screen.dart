@@ -200,20 +200,18 @@ class _PomodoroState extends State<PomodoroScreen> {
           ? Theme.of(context).colorScheme.background
           : Theme.of(context).textTheme.displayLarge!.color,
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         backgroundColor: Theme.of(context).colorScheme.background,
-        actions: <Widget>[
-          PopupMenuButton<String>(
-            itemBuilder: (BuildContext context) {
-              return {'Logout', 'Settings'}.map((String choice) {
-                return PopupMenuItem<String>(
-                  value: choice,
-                  child: Text(choice),
-                );
-              }).toList();
-            },
+        leading: GestureDetector(
+          onTap: () {},
+          child: IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.settings,
+              color: Theme.of(context).cardColor,
+            ),
           ),
-        ],
+        ),
+        automaticallyImplyLeading: false,
       ),
       body: Column(
         children: [
@@ -284,21 +282,13 @@ class _PomodoroState extends State<PomodoroScreen> {
   }
 }
 
-// PreferredSize(
-//         preferredSize: const Size.fromHeight(20.0),
-//         child: AppBar(
-//           automaticallyImplyLeading: false,
-//           actions: <Widget>[
-//             PopupMenuButton<String>(
-//               itemBuilder: (BuildContext context) {
-//                 return {'Logout', 'Settings'}.map((String choice) {
-//                   return PopupMenuItem<String>(
-//                     value: choice,
-//                     child: Text(choice),
-//                   );
-//                 }).toList();
-//               },
-//             ),
-//           ],
-//         ),
-//       ),
+// PopupMenuButton<String>(
+//             itemBuilder: (BuildContext context) {
+//               return {'Logout', 'Settings'}.map((String choice) {
+//                 return PopupMenuItem<String>(
+//                   value: choice,
+//                   child: Text(choice),
+//                 );
+//               }).toList();
+//             },
+//           ),

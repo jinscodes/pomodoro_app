@@ -49,7 +49,7 @@ class _SettingScreenState extends State<SettingScreen> {
   }
 
   void toPomodoroScreen() {
-    Navigator.push(
+    Navigator.pushReplacement(
         context,
         MaterialPageRoute(
             builder: (context) => PomodoroScreen(
