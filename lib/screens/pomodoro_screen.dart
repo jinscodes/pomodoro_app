@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pomodoro_app/pomodoro/bottomContainer.dart';
+import 'package:pomodoro_app/screens/setting_screen.dart';
 
 class PomodoroScreen extends StatefulWidget {
   final double sessions;
@@ -103,6 +104,11 @@ class _PomodoroState extends State<PomodoroScreen> {
     }
   }
 
+  void toSettingScreen() {
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (context) => const SettingScreen()));
+  }
+
   void onStartPressed() {
     timer = Timer.periodic(
       const Duration(seconds: 1),
@@ -193,6 +199,66 @@ class _PomodoroState extends State<PomodoroScreen> {
     );
   }
 
+  Future<void> _showAlertDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Theme.of(context).cardColor,
+          title: Column(
+            children: [
+              const Icon(
+                Icons.warning_amber_rounded,
+                color: Colors.red,
+                size: 60,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(
+                'WARNING!!',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.displayLarge!.color,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+          content: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                Text(
+                  'Returning to the setting screen, it is reset.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Theme.of(context).textTheme.displayLarge!.color,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('NO'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('YES'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                toSettingScreen();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -201,14 +267,13 @@ class _PomodoroState extends State<PomodoroScreen> {
           : Theme.of(context).textTheme.displayLarge!.color,
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.background,
-        leading: GestureDetector(
-          onTap: () {},
-          child: IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.settings,
-              color: Theme.of(context).cardColor,
-            ),
+        leading: IconButton(
+          onPressed: () {
+            _showAlertDialog();
+          },
+          icon: Icon(
+            Icons.settings,
+            color: Theme.of(context).cardColor,
           ),
         ),
         automaticallyImplyLeading: false,
@@ -281,6 +346,8 @@ class _PomodoroState extends State<PomodoroScreen> {
     );
   }
 }
+
+
 
 // PopupMenuButton<String>(
 //             itemBuilder: (BuildContext context) {
