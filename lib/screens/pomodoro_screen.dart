@@ -266,7 +266,9 @@ class _PomodoroState extends State<PomodoroScreen> {
           ? Theme.of(context).colorScheme.background
           : Theme.of(context).textTheme.displayLarge!.color,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: step == "sessions"
+            ? Theme.of(context).colorScheme.background
+            : Theme.of(context).textTheme.displayLarge!.color,
         leading: IconButton(
           onPressed: () {
             _showAlertDialog();
