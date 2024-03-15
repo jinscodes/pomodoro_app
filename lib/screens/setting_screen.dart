@@ -129,19 +129,26 @@ class _SettingScreenState extends State<SettingScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        TimerContainer(
-                          content: "DAILY GOAL",
-                          value: dailyGoal,
-                          updateSetting: updateDailyGoal,
-                          isBig: true,
-                          division: 60,
+                        Expanded(
+                          child: TimerContainer(
+                            content: "DAILY GOAL",
+                            value: dailyGoal,
+                            updateSetting: updateDailyGoal,
+                            isBig: true,
+                            division: 60,
+                          ),
                         ),
-                        TimerContainer(
-                          content: "SESSIONS TO LONG BREAK",
-                          value: sessionToLongBreak,
-                          updateSetting: updateSessionToLongBreak,
-                          isBig: true,
-                          division: 60,
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: TimerContainer(
+                            content: "SESSIONS TO LONG BREAK",
+                            value: sessionToLongBreak,
+                            updateSetting: updateSessionToLongBreak,
+                            isBig: true,
+                            division: 60,
+                          ),
                         ),
                       ],
                     ),
