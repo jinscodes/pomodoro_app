@@ -84,25 +84,37 @@ class _SettingScreenState extends State<SettingScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        TimerContainer(
-                          content: "SESSIONS",
-                          value: sessions,
-                          updateSetting: updateSessions,
-                          division: 12,
+                        Expanded(
+                          child: TimerContainer(
+                            content: "SESSIONS",
+                            value: sessions,
+                            updateSetting: updateSessions,
+                            division: 12,
+                          ),
                         ),
-                        TimerContainer(
-                          content: "SHORT BREAKS",
-                          value: shortBreak,
-                          updateSetting: updateShortBreak,
-                          division: 10,
-                          max: 10,
+                        const SizedBox(
+                          width: 10,
                         ),
-                        TimerContainer(
-                          content: "LONG BREAKS",
-                          value: longBreak,
-                          updateSetting: updateLongBreak,
-                          division: 6,
-                          max: 30,
+                        Expanded(
+                          child: TimerContainer(
+                            content: "SHORT BREAKS",
+                            value: shortBreak,
+                            updateSetting: updateShortBreak,
+                            division: 10,
+                            max: 10,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: TimerContainer(
+                            content: "LONG BREAKS",
+                            value: longBreak,
+                            updateSetting: updateLongBreak,
+                            division: 6,
+                            max: 30,
+                          ),
                         ),
                       ],
                     ),
