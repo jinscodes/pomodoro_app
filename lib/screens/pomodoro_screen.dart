@@ -56,14 +56,13 @@ class _PomodoroState extends State<PomodoroScreen> {
       if (step == "sessions") {
         if (curRound + 1 == sessionToLongBreak) {
           if (curGoal + 1 == dailyGoal) {
-            print("done");
             setState(() {
               curRound = 0;
               curGoal = 0;
               totalSecond = 0;
               step = "sessions";
             });
-            _showMyDialog();
+            _showDoneDialog();
           } else {
             setState(() {
               curRound = 0;
@@ -139,7 +138,14 @@ class _PomodoroState extends State<PomodoroScreen> {
     });
   }
 
-  Future<void> _showMyDialog() async {
+  void onSkipPressed() {
+    setState(() {
+      totalSecond = 0;
+    });
+    onTick(timer);
+  }
+
+  Future<void> _showDoneDialog() async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false,
@@ -259,6 +265,66 @@ class _PomodoroState extends State<PomodoroScreen> {
     );
   }
 
+  Future<void> _showSkiptDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Theme.of(context).cardColor,
+          title: Column(
+            children: [
+              const Icon(
+                Icons.warning_amber_rounded,
+                color: Colors.red,
+                size: 60,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(
+                'REMIND!!',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.displayLarge!.color,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+          content: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                Text(
+                  'Would you like to skip it?',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Theme.of(context).textTheme.displayLarge!.color,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('NO'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('YES'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                onSkipPressed();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -271,10 +337,14 @@ class _PomodoroState extends State<PomodoroScreen> {
             : Theme.of(context).textTheme.displayLarge!.color,
         leading: IconButton(
           onPressed: () {
-            _showAlertDialog();
+            if (step == "sessions") {
+              _showAlertDialog();
+            } else {
+              _showSkiptDialog();
+            }
           },
           icon: Icon(
-            Icons.settings,
+            step == "sessions" ? Icons.settings : Icons.skip_next_rounded,
             color: Theme.of(context).cardColor,
           ),
         ),
@@ -348,16 +418,3 @@ class _PomodoroState extends State<PomodoroScreen> {
     );
   }
 }
-
-
-
-// PopupMenuButton<String>(
-//             itemBuilder: (BuildContext context) {
-//               return {'Logout', 'Settings'}.map((String choice) {
-//                 return PopupMenuItem<String>(
-//                   value: choice,
-//                   child: Text(choice),
-//                 );
-//               }).toList();
-//             },
-//           ),
