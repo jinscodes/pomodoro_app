@@ -30,6 +30,14 @@ class _TimerSettingState extends State<TimerSetting> {
     super.initState();
   }
 
+  void setValue() {
+    if (settingValue == 0) {
+      return showSnackBar(context, "0 is not accepted");
+    }
+    widget.updateCurValue(settingValue);
+    widget.updateSetting(settingValue);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -85,8 +93,7 @@ class _TimerSettingState extends State<TimerSetting> {
                       ),
                     ),
                     onPressed: () {
-                      widget.updateCurValue(settingValue);
-                      widget.updateSetting(settingValue);
+                      setValue();
                       Navigator.pop(context);
                     },
                   ),
@@ -109,4 +116,21 @@ class _TimerSettingState extends State<TimerSetting> {
       ),
     );
   }
+}
+
+void showSnackBar(BuildContext context, String content) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(
+        content,
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+          fontSize: 16,
+        ),
+      ),
+      duration: const Duration(
+        seconds: 2,
+      ),
+    ),
+  );
 }
