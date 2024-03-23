@@ -97,8 +97,8 @@ class _PomodoroState extends State<PomodoroScreen> {
       _blink?.cancel();
     } else {
       setState(() {
-        totalSecond = totalSecond - 1;
-        // totalSecond = totalSecond - 10;
+        // totalSecond = totalSecond - 1;
+        totalSecond = totalSecond - 10;
       });
     }
   }
