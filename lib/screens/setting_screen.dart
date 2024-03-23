@@ -64,6 +64,28 @@ class _SettingScreenState extends State<SettingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).cardColor,
+        leadingWidth: 100,
+        leading: Row(
+          children: [
+            IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.list_outlined,
+                color: Theme.of(context).textTheme.displayLarge!.color,
+              ),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.save_alt_outlined,
+                color: Theme.of(context).textTheme.displayLarge!.color,
+              ),
+            ),
+          ],
+        ),
+      ),
       backgroundColor: Theme.of(context).cardColor,
       body: Center(
         child: Column(
