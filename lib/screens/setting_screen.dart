@@ -70,14 +70,18 @@ class _SettingScreenState extends State<SettingScreen> {
         leading: Row(
           children: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                print("ICON list");
+              },
               icon: Icon(
                 Icons.list_outlined,
                 color: Theme.of(context).textTheme.displayLarge!.color,
               ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                print("ICON save");
+              },
               icon: Icon(
                 Icons.save_alt_outlined,
                 color: Theme.of(context).textTheme.displayLarge!.color,
