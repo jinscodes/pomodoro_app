@@ -104,8 +104,12 @@ class _PomodoroState extends State<PomodoroScreen> {
   }
 
   void toSettingScreen() {
-    Navigator.pushReplacement(context,
-        MaterialPageRoute(builder: (context) => const SettingScreen()));
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const SettingScreen(),
+      ),
+    );
   }
 
   void onStartPressed() {
@@ -197,6 +201,12 @@ class _PomodoroState extends State<PomodoroScreen> {
               child: const Text('YES'),
               onPressed: () {
                 Navigator.of(context).pop();
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SettingScreen(),
+                  ),
+                );
               },
             ),
           ],
