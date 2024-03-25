@@ -367,25 +367,72 @@ class _PomodoroState extends State<PomodoroScreen> {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    _show
-                        ? SvgPicture.asset(
-                            "assets/svg/heartrate.svg",
-                            width: 500,
-                            height: 20,
-                            colorFilter: ColorFilter.mode(
-                              Theme.of(context).cardColor,
-                              BlendMode.srcIn,
-                            ),
-                          )
-                        : SvgPicture.asset(
-                            "assets/svg/heartrate.svg",
-                            width: 500,
-                            height: 20,
-                            colorFilter: ColorFilter.mode(
-                              Theme.of(context).cardColor.withOpacity(0.5),
-                              BlendMode.srcIn,
-                            ),
-                          ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        step == "sessions"
+                            ? _show
+                                ? Text(
+                                    "stuying...",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      color: Theme.of(context).cardColor,
+                                    ),
+                                  )
+                                : Text(
+                                    "stuying...",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      color: Theme.of(context)
+                                          .cardColor
+                                          .withOpacity(0.5),
+                                    ),
+                                  )
+                            : _show
+                                ? Text(
+                                    "recharging...",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      color: Theme.of(context).cardColor,
+                                    ),
+                                  )
+                                : Text(
+                                    "recharging...",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      color: Theme.of(context)
+                                          .cardColor
+                                          .withOpacity(0.5),
+                                    ),
+                                  ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        _show
+                            ? SvgPicture.asset(
+                                "assets/svg/heartrate.svg",
+                                width: 500,
+                                height: 20,
+                                colorFilter: ColorFilter.mode(
+                                  Theme.of(context).cardColor,
+                                  BlendMode.srcIn,
+                                ),
+                              )
+                            : SvgPicture.asset(
+                                "assets/svg/heartrate.svg",
+                                width: 500,
+                                height: 20,
+                                colorFilter: ColorFilter.mode(
+                                  Theme.of(context).cardColor.withOpacity(0.5),
+                                  BlendMode.srcIn,
+                                ),
+                              ),
+                      ],
+                    ),
                   ],
                 )),
           ),
