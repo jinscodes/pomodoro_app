@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pomodoro_app/common/button.dart';
 import 'package:pomodoro_app/pomodoro/timerContainer.dart';
 import 'package:pomodoro_app/screens/pomodoro_screen.dart';
+import 'package:pomodoro_app/screens/timer_list_screen.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
@@ -73,7 +74,12 @@ class _SettingScreenState extends State<SettingScreen> {
           children: [
             IconButton(
               onPressed: () {
-                print("ICON list");
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const TimerListScreen(),
+                  ),
+                );
               },
               icon: Icon(
                 Icons.list_outlined,
