@@ -64,7 +64,6 @@ class _TimerContainerState extends State<TimerContainer> {
         );
       },
       child: Container(
-        // width: boxSize,
         height: 105,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),

@@ -7,11 +7,31 @@ class TimerListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).cardColor,
+        leading: IconButton(
+          onPressed: () {},
+          icon: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+          ),
+        ),
+      ),
       backgroundColor: Theme.of(context).cardColor,
-      body: const Center(
+      body: Center(
         child: Padding(
-          padding: EdgeInsets.all(20.0),
-          child: TimerList(),
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              Image.asset("assets/image/list.png"),
+              const SizedBox(
+                height: 30,
+              ),
+              TimerList(
+                title: "Study Routine1",
+                handleClick: () => print("onTab"),
+              ),
+            ],
+          ),
         ),
       ),
     );
