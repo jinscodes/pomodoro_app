@@ -3,6 +3,7 @@ import 'package:pomodoro_app/common/button.dart';
 import 'package:pomodoro_app/pomodoro/timerContainer.dart';
 import 'package:pomodoro_app/screens/pomodoro_screen.dart';
 import 'package:pomodoro_app/screens/timer_list_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
@@ -64,6 +65,19 @@ class _SettingScreenState extends State<SettingScreen> {
     );
   }
 
+  saveTimer() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    dynamic settings = {
+      "sessions": 1,
+      "short": 2,
+      "long": 3,
+      "dg": 4,
+      "stlb": 1,
+    }.toString();
+
+    await prefs.setString("list", settings);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,6 +102,7 @@ class _SettingScreenState extends State<SettingScreen> {
             ),
             IconButton(
               onPressed: () {
+                saveTimer();
                 print("ICON save");
               },
               icon: Icon(
