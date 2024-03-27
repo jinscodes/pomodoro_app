@@ -18,10 +18,10 @@ class Routine {
   });
 }
 
-Future<String?> getList() async {
+Future<List<String>?> getList() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-  String? items = prefs.getString("list");
+  List<String>? items = prefs.getStringList("list");
 
   print("items: $items");
 

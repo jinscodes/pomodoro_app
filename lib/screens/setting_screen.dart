@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pomodoro_app/common/button.dart';
 import 'package:pomodoro_app/pomodoro/timerContainer.dart';
+import 'package:pomodoro_app/provider/get_list.dart';
 import 'package:pomodoro_app/screens/pomodoro_screen.dart';
 import 'package:pomodoro_app/screens/timer_list_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -67,15 +68,20 @@ class _SettingScreenState extends State<SettingScreen> {
 
   saveTimer() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    dynamic settings = {
-      "sessions": 1,
-      "short": 2,
-      "long": 3,
-      "dg": 4,
-      "stlb": 1,
+
+    List<String>? list = await getList();
+
+    String settings = {
+      "sessions": sessions,
+      "short": shortBreak,
+      "long": longBreak,
+      "dg": dailyGoal,
+      "stlb": sessionToLongBreak,
     }.toString();
 
-    await prefs.setString("list", settings);
+    list!.add(settings);
+
+    await prefs.setStringList("list", list);
   }
 
   @override

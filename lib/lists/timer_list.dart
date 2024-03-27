@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:pomodoro_app/provider/get_list.dart';
 
 class TimerList extends StatelessWidget {
   final String title;
   final Function handleClick;
-  Future<String?> listItems = getList();
+  // Future<List<String>?> listItems = getList();
 
-  TimerList({
+  const TimerList({
     super.key,
     required this.title,
     required this.handleClick,
@@ -14,7 +13,7 @@ class TimerList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("list: $listItems");
+    // print("list: $listItems");
     return GestureDetector(
       onTap: () {
         handleClick();
