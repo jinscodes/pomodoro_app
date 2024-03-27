@@ -23,7 +23,7 @@ Future<List<String>?> getList() async {
 
   List<String>? items = prefs.getStringList("list");
 
-  print("items: $items");
+  // print("items: $items");
 
   return items;
 }

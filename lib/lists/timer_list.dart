@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class TimerList extends StatelessWidget {
   final String title;
   final Function handleClick;
-  // Future<List<String>?> listItems = getList();
 
   const TimerList({
     super.key,
@@ -13,7 +12,6 @@ class TimerList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // print("list: $listItems");
     return GestureDetector(
       onTap: () {
         handleClick();
