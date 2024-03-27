@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:pomodoro_app/lists/timer_list.dart';
 
-class TimerListScreen extends StatelessWidget {
+class TimerListScreen extends StatefulWidget {
   const TimerListScreen({super.key});
 
+  @override
+  State<TimerListScreen> createState() => _TimerListScreenState();
+}
+
+class _TimerListScreenState extends State<TimerListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,6 +35,25 @@ class TimerListScreen extends StatelessWidget {
                 title: "Study Routine1",
                 handleClick: () => print("onTab"),
               ),
+              // FutureBuilder(
+              //     future: getList(),
+              //     builder: (context, snapshot) {
+              //       if (snapshot.connectionState == ConnectionState.waiting) {
+              //         return const CircularProgressIndicator();
+              //       } else if (snapshot.hasError) {
+              //         return Text("Err: ${snapshot.error}");
+              //       } else {
+              //         List<String>? list = snapshot.data;
+              //         print("LIST: $list");
+
+              //         return ListView.builder(
+              //           itemCount: list!.length,
+              //           itemBuilder: (context, index) {
+              //             return Text(list[index]);
+              //           },
+              //         );
+              //       }
+              //     }),
             ],
           ),
         ),
