@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:pomodoro_app/lists/timer_list.dart';
 import 'package:pomodoro_app/provider/get_list.dart';
 
 class TimerListScreen extends StatelessWidget {
@@ -42,34 +43,31 @@ class TimerListScreen extends StatelessWidget {
                   }
 
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    print("waiting");
+                    return const CircularProgressIndicator();
                   } else {
-                    print("data: ${snapshot.data}");
-                    // dynamic jsonList = json.decode(snapshot.data);
-
-                    return LayoutBuilder(builder: (context, constraints) {
-                      return SingleChildScrollView(
-                        child: ConstrainedBox(
-                          constraints: BoxConstraints(
-                            minHeight: constraints.maxHeight,
-                          ),
-                          child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("LIST1"),
-                                ],
+                    return SingleChildScrollView(
+                      child: SizedBox(
+                        height: MediaQuery.of(context).size.height / 1.5,
+                        width: MediaQuery.of(context).size.width,
+                        child: ListView.builder(
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, idx) {
+                            print("snapshot.data[idx]: ${snapshot.data![idx]}");
+                            print("snapshot: ${snapshot.data}");
+                            return Padding(
+                              padding: const EdgeInsets.only(
+                                bottom: 10,
                               ),
-                            ],
-                          ),
+                              child: TimerList(
+                                title: "title $idx",
+                                handleClick: () => print("$idx"),
+                              ),
+                            );
+                          },
                         ),
-                      );
-                    });
+                      ),
+                    );
                   }
-
-                  return const Text("FUTURE BUILDER");
                 },
               ),
             ],
