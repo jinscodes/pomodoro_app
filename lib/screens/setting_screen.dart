@@ -67,6 +67,8 @@ class _SettingScreenState extends State<SettingScreen> {
   }
 
   saveTimer() async {
+    await _saveDialog();
+
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     List<String>? list = await getList();
@@ -82,6 +84,53 @@ class _SettingScreenState extends State<SettingScreen> {
     list!.add(settings);
 
     await prefs.setStringList("list", list);
+  }
+
+  Future<void> _saveDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Theme.of(context).cardColor,
+          title: Column(
+            children: [
+              // const Icon(
+              //   Icons.check_circle_outline_rounded,
+              //   color: Colors.green,
+              //   size: 60,
+              // ),
+              // const SizedBox(
+              //   height: 10,
+              // ),
+              Text(
+                'Title',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.displayLarge!.color,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const TextField(),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('No'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('YES'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
