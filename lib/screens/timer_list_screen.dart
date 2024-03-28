@@ -1,14 +1,17 @@
-import 'package:flutter/material.dart';
-import 'package:pomodoro_app/lists/timer_list.dart';
+import 'dart:convert';
 
-class TimerListScreen extends StatefulWidget {
+import 'package:flutter/material.dart';
+import 'package:pomodoro_app/provider/get_list.dart';
+
+class TimerListScreen extends StatelessWidget {
   const TimerListScreen({super.key});
 
-  @override
-  State<TimerListScreen> createState() => _TimerListScreenState();
-}
+  encodeList(String list) {
+    dynamic listToJson = jsonDecode(list);
 
-class _TimerListScreenState extends State<TimerListScreen> {
+    return listToJson;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,29 +34,44 @@ class _TimerListScreenState extends State<TimerListScreen> {
               const SizedBox(
                 height: 30,
               ),
-              TimerList(
-                title: "Study Routine1",
-                handleClick: () => print("onTab"),
-              ),
-              // FutureBuilder(
-              //     future: getList(),
-              //     builder: (context, snapshot) {
-              //       if (snapshot.connectionState == ConnectionState.waiting) {
-              //         return const CircularProgressIndicator();
-              //       } else if (snapshot.hasError) {
-              //         return Text("Err: ${snapshot.error}");
-              //       } else {
-              //         List<String>? list = snapshot.data;
-              //         print("LIST: $list");
+              FutureBuilder(
+                future: getList(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return const Text("Error");
+                  }
 
-              //         return ListView.builder(
-              //           itemCount: list!.length,
-              //           itemBuilder: (context, index) {
-              //             return Text(list[index]);
-              //           },
-              //         );
-              //       }
-              //     }),
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    print("waiting");
+                  } else {
+                    print("data: ${snapshot.data}");
+                    // dynamic jsonList = json.decode(snapshot.data);
+
+                    return LayoutBuilder(builder: (context, constraints) {
+                      return SingleChildScrollView(
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(
+                            minHeight: constraints.maxHeight,
+                          ),
+                          child: const Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text("LIST1"),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    });
+                  }
+
+                  return const Text("FUTURE BUILDER");
+                },
+              ),
             ],
           ),
         ),
